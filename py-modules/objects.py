@@ -18,6 +18,7 @@ class style(object):
 class ingredient(object): 
 	'''
 	https://byo.com/resources/
+	use this class for stuff like coriander, jasmine, other spices and stuff that doesnt have fermentable sugars and what not
 	'''
 	def __init__(self, name, styles, flavors):
 		self.name = name
@@ -53,14 +54,6 @@ class hop(ingredient):
 	def __init__(self,name,styles,flavors,alphaacid):
 		super().__init__(name,styles,flavors)
 		self.aa = alphaacid 				#alpha acid percent in [0,1]
-
-
-class adjunct(ingredient):
-	'''
-	additions like coriander, orange peel, jasmine, etc. May want to ignore this class and just use the ingredient class for these things unless a new variable seems necessary
-	'''
-	def __init__(self,name,styles,flavors):
-		super().__init__(name,styles,flavors)
 
 
 class primer(object):
