@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Squiggle!</title>
+ 
+    
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/squiggle_pad.css" rel="stylesheet">
+    <link href="../static/js/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
+
+    <script src="../static/js/jquery-2.2.3.js"></script>
+    <script src="../static/js/canvas.js"></script>
+    <script src="../static/js/jquery-ui-1.11.4/jquery-ui.js"></script>
+  </head>
+ 
+  <body>
+ 
+    <div class="container">
+        <!-- Webpage header -->
+        <div class="header">
+
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="/">Home</a></li>
+                    <li role="presentation"><a href="#">Sign In</a></li>
+                    <li role="presentation"><a href="#">Sign Up</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">SquigglePad</h3>
+
+        </div>
+
+    
+        <!-- Squiggle Interface -->
+
+
+        <div class="canvas-pad-group">
+            
+            <div class="tools-group">
+                <button id="clear-canvas-btn" class="canvas-control">Clear</button>
+                <button id="undo-btn">Undo</button>
+                <button id="redo-btn">Redo</button>
+            </div>
+
+            <div class="canvas-div" id="canvasDiv"></div>
+            <div class="row color-row">
+                <button class="color-btn btn-black"></button>
+                <button class="color-btn btn-dark-gray"></button>
+                <!-- <button class="color-btn btn-med-gray"></button> -->
+                <button class="color-btn btn-light-gray"></button>
+                <button class="color-btn btn-dark-brown"></button>
+                <button class="color-btn btn-med-brown"></button>
+                <button class="color-btn btn-light-brown"></button>
+                <button class="color-btn btn-dark-purple"></button>
+                <button class="color-btn btn-med-purple"></button>
+                <button class="color-btn btn-light-purple"></button>
+                <button class="color-btn btn-dark-blue"></button>
+                <button class="color-btn btn-med-blue"></button>
+                <button class="color-btn btn-light-blue"></button>
+                <button class="color-btn btn-dark-green"></button>
+                <button class="color-btn btn-med-green"></button>
+                <button class="color-btn btn-light-green"></button>
+                <!-- <button class="color-btn btn-dark-yellow"></button> -->
+                <button class="color-btn btn-med-yellow"></button>
+                <button class="color-btn btn-light-yellow"></button>
+                <!-- <button class="color-btn btn-dark-orange"></button> -->
+                <button class="color-btn btn-med-orange"></button>
+                <button class="color-btn btn-light-orange"></button>
+                <!-- <button class="color-btn btn-dark-red"></button> -->
+                <button class="color-btn btn-med-red"></button>
+                <button class="color-btn btn-light-red"></button>
+            </div>
+
+            <div class="row slider-row">
+                <div class="size-icon-container"><div id="size-icon" class="size-icon"></div></div>
+                <div id="slider" class="size-slider"></div>
+            </div>
+
+        </div>
+
+
+        
+
+    
+        <div style="padding-top: 20px"> Canvas implementation startup using <a href="http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/">this guide.</div>
+ 
+      <footer class="footer">
+        <p>&copy; Vahalalaland 2015</p>
+      </footer>
+ 
+    </div>
+
+  </body>
+</html>
