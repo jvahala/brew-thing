@@ -43,7 +43,7 @@ class Crawler(object):
 		def getElements(soup): 
 			element_array = np.empty((1,len(self.names)),dtype='object')
 			add_row = element_array
-			for eind, elt in enumerate(soup.findAll('tr',{'class':self.entryIDs[0],'class':self.entryIDs[1]})):
+			for eind, elt in enumerate(soup.findAll('tr',{'class':self.entryIDs[0],'class':self.entryIDs[1]})):  '''fix this line'''
 				printable = set(string.printable)
 				components = len(elt.findAll('td'))
 				for iind,item in enumerate(elt.findAll('td')): 
@@ -61,7 +61,7 @@ class Crawler(object):
 		source_code = driver.page_source
 		soup = BeautifulSoup(source_code,'lxml')
 		curr_style_list = soup.findAll('option',{'value':str(self.curr_style_val)})
-		self.curr_style_str = curr_style_list[0].string.replace(u'ö','o')
+		self.curr_style_str = str(curr_style_list[0].string.replace(u'ö','o').replace(u'ü','u'))
 		if len(self.names) == 0: 
 			self.names = getElementNames(soup)
 		output_array = getElements(soup)
@@ -71,50 +71,59 @@ class Crawler(object):
 		self.driver.quit()
 
 
+def crawlMultiple(baseurl,styleslist,crawl_type):
+
+	#setup crawler url and dropdown selection based on crawl_type
+	if crawl_type[0].lower() == 'h': 		#crawl hops page
+		url = baseurl+'hops'
+		dropdown = 'style'
+	elif crawl_type[0].lower() == 'y': 		#crawl yeast page
+		url = baseurl+'yeast'
+		dropdown = 'style'
+	elif crawl_type[0].lower() == 'g': 		#crawl grains page
+		url = baseurl+'grains'
+		dropdown = 'gtype'
+	else: 
+		return '#####ERROR: crawl_type must be \'hops\', \'yeast\', or \'grains\''
+
+	crawler = Crawler(url=url, dropdownName=dropdown)
+	
+	#go through styleslist numbers
+	problem_child = 0
+	for i in styleslist:
+		try: 
+			crawler.selectStyle(i)
+			problem_child=0
+		except NoSuchElementException: 
+			print '\n----------------\n######ERROR: revise styleslist (element ',str(i),' not found)\n----------------\n\n'
+			problem_child += 1
+			if problem_child > 2:
+				print '\n----------------\n######ERROR: problem_child done run a muck. Iteration ended.\n----------------\n\n'
+				break
+			continue
+
+		style, names, output = crawler.getTableContents()
+		
+		'''here, need to add methods to add information to the database, parse, etc'''
+
+		#print the current page crawl results
+		print 'CATEGORY: ',style
+		print names
+		print output
+		print '--------\n\n'
+
+	#terminate the driver connection	
+	crawler.endDriver()
+
+	return style, names, output
+
+def main(): 
+	#crawl type is either 'hops', 'yeast', or 'grains', styleslist is the list of values associated with the dropdown html options
+	baseurl = 'https://byo.com/resources/'
+	styleslist = np.arange(28)+1
+	crawl_type = 'h'
+	style,names,output = crawlMultiple(baseurl,styleslist=styleslist,crawl_type=crawl_type)
+	return style,names,output
 
 
-if __name__ == '__main__':
-	#setup stuff, chose appropriate url and dropdown options for your crawl
-    baseurl = 'https://byo.com/resources/'
-    hopurl = baseurl+'hops'
-    grainurl = baseurl+'grains'
-    yeasturl = baseurl+'yeast'
-    grain_dropdown = 'gtype'
-    hop_yeast_dropdown = 'style'
-
-    #define which styles/values to crawl over (see options in html)
-    styleslist = np.arange(28)+1	#in range {1,2,3,...}
-    print styleslist
-
-    #choose Crawler class
-    #currCrawler = Crawler(url=grainurl,dropdownName=grain_dropdown)
-    #currCrawler = Crawler(url=hopurl,dropdownName=hop_yeast_dropdown)
-    currCrawler = Crawler(url=yeasturl,dropdownName=hop_yeast_dropdown)
-
-    #iterate through your chosen style numbers
-    problem_child = 0
-    for i in styleslist:
-    	try: 
-    		currCrawler.selectStyle(i)
-    		problem_child=0
-    	except NoSuchElementException: 
-    		print '\n----------------\n######ERROR: revise styleslist (element ',str(i),' not found)\n----------------\n\n'
-    		problem_child += 1
-    		if problem_child > 2:
-    			print '\n----------------\n######ERROR: problem_child done run a muck. Iteration ended.\n----------------\n\n'
-    			break
-    		continue
-
-    	style, names, output = currCrawler.getTableContents()
-    	
-    	'''here, need to add methods to add information to the database'''
-
-    	#print the current page crawl results
-    	print 'CATEGORY: ',style
-    	print names
-    	print output
-    	print '--------\n\n'
-
-    #terminate the driver connection	
-    currCrawler.endDriver()
-
+if __name__ == '__main__': main()
