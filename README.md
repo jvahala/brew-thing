@@ -7,6 +7,4 @@ Brew-thing is a recipe generator based on a person's "feeling" about the beer in
 3. Calculate proportions of ingredients to meet user's contraints on color, ibu, abv, honesty, etc. 
 
 ### Creators: 
-Josh Vahala
-
-Shane Verploegh
+Josh Vahala, Shane Verploegh
