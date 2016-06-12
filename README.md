@@ -8,4 +8,5 @@ Brew-thing is a recipe generator based on a person's "feeling" about the beer in
 
 ### Creators: 
 Josh Vahala
+
 Shane Verploegh
