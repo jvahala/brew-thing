@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Brewtal</title>
+   <script type="text/javascript" src="{{ url_for('static', filename='sliders.js') }}"></script>
+
+  <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='jquery/jquery-ui.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery-3.0.0.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery-ui.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sliders.css') }}">
+<style>
+.SRM {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+.STR {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+.MOU {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+.HON {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+.SWE {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+.IBU {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    padding: 0px;
+    height: 100px;
+    width: 200px;
+    background: red;
+    border: 1px solid #000;
+}
+</style>
+<script>
+$(function(){
+  $( "#SRM" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+          $("#vSRM").val(ui.value);
+          $(ui.value).val( $('#vSRM').val() );
+      }
+  });
+  $("#vSRM").change(function () {
+    $("#SRM").slider("value", $(this).val() );
+  });
+
+  $( "#IBU" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+        $("#vIBU").val(ui.value);
+        $(ui.value).val( $('#vIBU').val() );
+      }
+  });
+  $("#vIBU").change(function () {
+    $("#IBU").slider("value", $(this).val() );
+  });
+
+
+  $( "#SWE" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+      $("#vSWE").val(ui.value);
+      $(ui.value).val( $('#vSWE').val() );
+    }
+  });
+  $("#vSWE").change(function () {
+      $("#SWE").slider("value", $(this).val() );
+  });
+
+  $( "#STR" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+      $("#vSTR").val(ui.value);
+      $(ui.value).val( $('#vSTR').val() );
+    }
+  });
+  $("#vSTR").change(function () {
+      $("#STR").slider("value", $(this).val() );
+  });
+
+  $( "#MOU" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+      $("#vMOU").val(ui.value);
+      $(ui.value).val( $('#vMOU').val() );
+    }
+  });
+  $("#vMOU").change(function () {
+      $("#MOU").slider("value", $(this).val() );
+  });
+
+  $( "#HON" ).slider({
+    value: 50,
+    min: 0,
+    max: 100,
+    orientation: "horizontal",
+    range: "min",
+    animate: true,
+    slide: function (event, ui) {
+      $("#vHON").val(ui.value);
+      $(ui.value).val( $('#vHON').val() );
+    }
+  });
+  $("#vHON").change(function () {
+      $("#HON").slider("value", $(this).val() );
+  });
+});
+</script>
+</head>
+<body>
+<p>
+  SRM: <input type="number" name="vSRM" id="vSRM" min="0" max="100" value="50">%
+  <div id="SRM"></div>
+</p>
+
+<p>
+  IBUs: <input type="number" name="vIBU" id="vIBU" min="0" max="100" value="50">%
+  <div id="IBU"></div>
+</p>
+
+<p>
+  Sweet: <input type="number" name="vSWE" id="vSWE" min="0" max="100" value="50">%
+  <div id="SWE"></div>
+</p>
+
+<p>
+  Strength: <input type="number" name="vSTR" id="vSTR" min="0" max="100" value="50">%
+  <div id="STR"></div>
+</p>
+
+<p>
+  Mouthiness: <input type="number" name="vMOU" id="vMOU" min="0" max="100" value="50">%
+  <div id="MOU"></div>
+</p>
+
+<p>
+  Honesty: <input type="number" name="vHON" id="vHON" min="0" max="100" value="50">%
+  <div id="HON"></div>
+</p>
+
+</body>
+</html>
