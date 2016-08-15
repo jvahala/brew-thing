@@ -43,7 +43,7 @@ class Crawler(object):
 		def getElements(soup): 
 			element_array = np.empty((1,len(self.names)),dtype='object')
 			add_row = element_array
-			for eind, elt in enumerate(soup.findAll('tr',{'class':self.entryIDs[0],'class':self.entryIDs[1]})):  '''fix this line'''
+			for eind, elt in enumerate(soup.findAll('tr',{'class':self.entryIDs[0],'class':self.entryIDs[1]})):
 				printable = set(string.printable)
 				components = len(elt.findAll('td'))
 				for iind,item in enumerate(elt.findAll('td')): 
@@ -121,7 +121,7 @@ def main():
 	#crawl type is either 'hops', 'yeast', or 'grains', styleslist is the list of values associated with the dropdown html options
 	baseurl = 'https://byo.com/resources/'
 	styleslist = np.arange(28)+1
-	crawl_type = 'h'
+	crawl_type = 'hops'
 	style,names,output = crawlMultiple(baseurl,styleslist=styleslist,crawl_type=crawl_type)
 	return style,names,output
 

@@ -18,13 +18,13 @@ class HopParser(Parser):
 		self.parsed = np.empty((len(table),len(self.parsed_names)),dtype='object')
 
 		for r,row in enumerate(table):
-			print 'row', row
+			#print 'row', row
 			for c,elt in enumerate(row): 
 				 #parse names
-				 print 'elt', elt
+				 #print 'elt', elt
 				 if 'name' in self.column_names[c].lower():
 				 	test = elt.rpartition(' (')[0]
-				 	print self.parsed_names['Name']
+				 	#print self.parsed_names['Name']
 				 	if test == '': 
 				 		self.parsed[r,self.parsed_names['Name']] = elt		#name
 				 		self.parsed[r,self.parsed_names['Country']] = 'n/a'	#country
@@ -34,7 +34,7 @@ class HopParser(Parser):
 				 
 				 #parse alpha acid percentage
 				 elif 'acid' in self.column_names[c].lower(): 
-				 	print self.parsed_names['Expected Alpha Acid %'], elt
+				 	#print self.parsed_names['Expected Alpha Acid %'], elt
 				 	if elt.lower() == 'na': 
 				 		self.parsed[r,self.parsed_names['Expected Alpha Acid %']] = 'n/a'
 				 		continue
@@ -61,7 +61,50 @@ class HopParser(Parser):
 				 		self.parsed[r,self.parsed_names['Substitutions']] = subslist
 
 				 elif 'flavor' in self.column_names[c].lower(): 
-				 	self.parsed[r,self.parsed_names['Flavors']] = 'n/a'
+				 	self.parsed[r,self.parsed_names['Flavors']] = flavorParse(elt)
+
+def flavorParse(description): 
+	#deal with case where no desciption existed
+	if description == '': 
+		notes = ['n/a']
+		return notes 
+
+	#potential flavors that are possible to be described
+	flavors = {}
+	flavors['earth'] = {'tree':['pine','oak'],'grass':[],'spic':['pepper','salt'],'bitter':[]}
+	flavors['clean'] = {}
+	flavors['fruit'] = {'citr':['lemon','lime','orange','pineapple','grapefruit','tangerine'],'trop':['mango','pineapple','guava','banana'],'other':['apricot','apple','pear']}
+	flavors['flor'] = {'flower':['tea'],'herb':['mint']}
+
+	#words that have roots for various spellings that should be translated to base terms
+	translate = {'flor':'floral','flower':'floral','trop':'tropical','citr':'citrus','spic':'spicy'}
+
+	#compare flavors to the given desciption to get flavor notes
+	notes = []
+	#print description
+	notes = shuffleDown(description,flavors,notes)
+	notes = [translate[n] if n in translate else n for n in notes]	#implement translating base terms 
+
+	if len(notes) == 0: 
+		notes.append('n/a')
+
+	return notes
+
+
+def shuffleDown(phrase,dictionary,notes=[]): 
+	if type(dictionary) is dict: 
+		for key in dictionary: 
+			if key in phrase: 
+				notes.append(key)
+			shuffleDown(phrase,dictionary[key],notes)
+	elif type(dictionary) is list: 
+		for elt in dictionary: 
+			if elt in phrase:
+				notes.append(elt)
+	return notes 
+
+
+
 
 
 
