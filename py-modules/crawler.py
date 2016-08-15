@@ -70,10 +70,7 @@ class Crawler(object):
 	def endDriver(self):
 		self.driver.quit()
 
-
-def crawlMultiple(baseurl,styleslist,crawl_type):
-
-	#setup crawler url and dropdown selection based on crawl_type
+def setupCrawler(baseurl,crawl_type):
 	if crawl_type[0].lower() == 'h': 		#crawl hops page
 		url = baseurl+'hops'
 		dropdown = 'style'
@@ -85,8 +82,25 @@ def crawlMultiple(baseurl,styleslist,crawl_type):
 		dropdown = 'gtype'
 	else: 
 		return '#####ERROR: crawl_type must be \'hops\', \'yeast\', or \'grains\''
-
 	crawler = Crawler(url=url, dropdownName=dropdown)
+	return crawler 
+
+def crawlStyle(crawler,style_id,problem_child=0,print_details=False):
+	try: 
+		crawler.selectStyle(style_id)
+		problem_child=0
+	except NoSuchElementException: 
+		print '\n----------------\n######ERROR: revise styleslist (element ',str(i),' not found)\n----------------\n\n'
+		problem_child += 1
+		if problem_child > 2:
+			print '\n----------------\n######ERROR: problem_child done run a muck. Iteration ended.\n----------------\n\n'
+
+	return crawler,problem_child
+
+def crawlMultiple(baseurl,styleslist,crawl_type):
+
+	#setup crawler url and dropdown selection based on crawl_type
+	crawler = setupCrawler(baseurl,crawl_type)
 	
 	#go through styleslist numbers
 	problem_child = 0
@@ -103,8 +117,6 @@ def crawlMultiple(baseurl,styleslist,crawl_type):
 			continue
 
 		style, names, output = crawler.getTableContents()
-		
-		'''here, need to add methods to add information to the database, parse, etc'''
 
 		#print the current page crawl results
 		print 'CATEGORY: ',style

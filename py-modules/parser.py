@@ -7,10 +7,9 @@ class Parser(object):
 		self.column_names = column_names	#list of column names
 
 class HopParser(Parser): 
-	def __init__(self,column_names,style): 
-		#super().__init__(column_names)
+	def __init__(self,column_names): 
+		Parser.__init__(self,column_names)
 		self.column_names = column_names
-		self.style = style
 
 	def parse(self,table): 
 		#parses the data table into a new table self.parsed with elements associated with self.parsed_names
@@ -71,8 +70,8 @@ def flavorParse(description):
 
 	#potential flavors that are possible to be described
 	flavors = {}
-	flavors['earth'] = {'tree':['pine','oak'],'grass':[],'spic':['pepper','salt'],'bitter':[]}
-	flavors['clean'] = {}
+	flavors['earth'] = {'tree':['pine','oak'],'grass':[],'spic':['pepper','salt']}
+	flavors['clean'] = {'bitter':[],'smooth':[]}
 	flavors['fruit'] = {'citr':['lemon','lime','orange','pineapple','grapefruit','tangerine'],'trop':['mango','pineapple','guava','banana'],'other':['apricot','apple','pear']}
 	flavors['flor'] = {'flower':['tea'],'herb':['mint']}
 
@@ -85,16 +84,64 @@ def flavorParse(description):
 	notes = shuffleDown(description,flavors,notes)
 	notes = [translate[n] if n in translate else n for n in notes]	#implement translating base terms 
 
+	#remove error causing instances like pine,apple,pineapple
+	notes = removeErrorNotes(notes)
+
 	if len(notes) == 0: 
 		notes.append('n/a')
 
 	return notes
 
+def removeErrorNotes(notes): 
+	if len(notes) == 0: 
+		return notes
+	if 'pineapple' in notes: 
+		notes.remove('pine')
+		notes.remove('apple')
+	return notes
 
-def shuffleDown(phrase,dictionary,notes=[]): 
+def findAllInstances(phrase,word,carry=0,locations=[]): 
+	print 'consider: ', phrase
+	if word in phrase:
+		foundat = phrase.find(word)+carry
+		print 'foundat', foundat
+		locations.append(foundat) 
+		newphrase = phrase[(foundat-carry+1):]
+		carry = foundat+1
+		locations = findAllInstances(newphrase,word,carry,locations)
+	return locations 
+
+def getStrengthSpots(phrase,strengths=['mild','strong']): 
+	#given an input phrase and a list of items to search for, this function returns a dictionary with {item:[loc1,loc2,...]} where loc are the first letter of the next word from the item instance in the phrase
+	spots = {}
+	for word in strengths: 
+		nextwords = []
+		locations = findAllInstances(phrase,word,carry=0,locations=[])
+		print 'Word: ', word, 'Locations:', locations
+		if len(locations) > 0: 
+			for loc in locations: 
+				test = phrase[loc:]
+				nextone = test.find(' ')+1
+				if nextone>0:				#for case that there is no space nextone will be -1+1 = 0
+					nextwords.append(loc+nextone)
+			locations = nextwords
+		spots[word]=locations
+	return spots
+
+			
+
+
+
+
+
+def shuffleDown(phrase,dictionary,spots,notes=[]): 
+	#spots comes from getStrengthSpots
 	if type(dictionary) is dict: 
 		for key in dictionary: 
 			if key in phrase: 
+				'''implment this below'''
+				#if the key is in the phrase, check if it matches a strength spot location, if so, adjust the strength value in the dictionary
+				keyloc = phrase.find(key)
 				notes.append(key)
 			shuffleDown(phrase,dictionary[key],notes)
 	elif type(dictionary) is list: 
