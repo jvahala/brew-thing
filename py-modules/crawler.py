@@ -119,10 +119,10 @@ def crawlMultiple(baseurl,styleslist,crawl_type):
 		style, names, output = crawler.getTableContents()
 
 		#print the current page crawl results
-		print 'CATEGORY: ',style
-		print names
-		print output
-		print '--------\n\n'
+		print style, i
+		#print names
+		#print output
+		#print '--------\n\n'
 
 	#terminate the driver connection	
 	crawler.endDriver()
@@ -139,3 +139,32 @@ def main():
 
 
 if __name__ == '__main__': main()
+
+American Lager 1
+American Amber & Pale Ale 2
+Barleywine and Imperial Stout 3
+Belgian and French Ale 4
+Belgian Lambic and Sour Ale 5
+Belgian Strong Ale 6
+Bock 7
+Brown Ale 8
+Cider 9
+English & Scottish Strong Ale 10
+English Bitter & Pale Ale 11
+European Dark Lager 12
+European Pale Lager 13
+Fruit Beer 14
+German Amber Lager 15
+India Pale Ale 16
+Kolsch & Altbier 17
+Light Ale 18
+Mead 19
+Porter 20
+Scottish Ale 21
+Smoked Beer 22
+Soda Pop 23
+Specialty & Experimental Beer 24
+Spice, Herb & Vegetable Beer 25
+Stout 26
+Wheat Beer 27
+American Pale Ale 28
