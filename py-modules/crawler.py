@@ -140,6 +140,7 @@ def main():
 
 if __name__ == '__main__': main()
 
+'''
 American Lager 1
 American Amber & Pale Ale 2
 Barleywine and Imperial Stout 3
@@ -168,3 +169,4 @@ Spice, Herb & Vegetable Beer 25
 Stout 26
 Wheat Beer 27
 American Pale Ale 28
+'''
