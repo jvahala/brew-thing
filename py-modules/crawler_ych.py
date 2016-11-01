@@ -174,7 +174,7 @@ def addNewHopGroupInfo(hopGroup):
 		for oilname in oilname_letters:
 			oilnames.append(oilname.text)
 
-		print 'oilvalue letters: ', len(oilvalue_letters)
+		#print 'oilvalue letters: ', len(oilvalue_letters)
 		for ov in oilvalue_letters: 
 			#print 'OV', ov 
 			if ov.text != None:
@@ -195,7 +195,9 @@ def addNewHopGroupInfo(hopGroup):
 
 
 def completeHopGroup(): 
+	print 'Starting hop grouping: '
 	hg = doToHopGrouping()
+	print 'Filling out hop group information: c'
 	addNewHopGroupInfo(hg)
 	return hg
 
@@ -243,5 +245,6 @@ Plan
 2. split data into training, test, validation data
 3. Learn about random forests - try to implement 
 4. Run SGD 
+'''
 
 
