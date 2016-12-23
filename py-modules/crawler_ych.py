@@ -190,7 +190,7 @@ def addNewHopGroupInfo(hopGroup):
 		curr_hop.addOils(oilnames,oilvalues,uppers,lowers,middles,units)
 		'''END ADD OIL INFORMATION'''
 
-		'''ADD COUNTRY, GENERAL DESCRIPTION, AROMA DESCRIPTION'''
+		'''ADD COUNTRY, GENERAL DESCRIPTION, AROMA DESCRIPTION BELOW!!!!!!'''
 
 
 

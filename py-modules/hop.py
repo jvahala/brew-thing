@@ -1,4 +1,4 @@
-
+# still need to add hop description terms from the crawler
 class Hop(object): 
 	def __init__(self,idnum,name,use,rating,url,aromas): 
 		self.id = idnum

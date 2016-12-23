@@ -123,3 +123,6 @@ def runningAvg(vector,N):
 	'''
 	return np.convolve(vector, np.ones(N,)/(N*1.0))[(N-1):]
 
+def randomBetween(low,high): 
+	return low + np.random.rand()*(high-low)
+
